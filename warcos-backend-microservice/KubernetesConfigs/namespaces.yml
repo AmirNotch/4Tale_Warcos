@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: auth-service
+  labels:
+    app: warcos
+    release: warcos
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: warcos-lobby
+  labels:
+    app: warcos
+    release: warcos
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: warcos-director
+  labels:
+    app: warcos
+    release: warcos
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: warcos-mmf
+  labels:
+    app: warcos
+    release: warcos

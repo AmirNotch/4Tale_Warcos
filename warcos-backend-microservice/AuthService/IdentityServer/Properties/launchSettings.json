@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_URLS": "http://0.0.0.0:5001/",
+        "DOTNET_URLS": "http://0.0.0.0:5001/",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://0.0.0.0:5001"
+    },
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json"
+}

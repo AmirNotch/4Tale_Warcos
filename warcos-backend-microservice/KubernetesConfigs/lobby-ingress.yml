@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lobby-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /api/public/ws
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  #tls:
+  #  - hosts:
+  #    - play.warcos2.4taleproduction.com
+  #    secretName: microbot-ingress-tls
+  rules:
+  - http:
+      paths:
+        - path: /play(.*)
+          pathType: Prefix
+          backend:
+            service:
+              name: warcos-lobby
+              port:
+                number: 8081
+    host: play.warcos2.4taleproduction.com

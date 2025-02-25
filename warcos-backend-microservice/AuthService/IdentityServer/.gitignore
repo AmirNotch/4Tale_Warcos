@@ -1,0 +1,6 @@
+tempkey.jwk
+bin/**
+obj/**
+log/**
+.idea/**
+.vs/**

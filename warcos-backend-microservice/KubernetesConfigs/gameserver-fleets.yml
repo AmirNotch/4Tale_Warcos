@@ -1,0 +1,26 @@
+apiVersion: agones.dev/v1
+kind: Fleet
+metadata:
+  name: warcos-game-server
+spec:
+  replicas: 3
+  template:
+    spec:
+      ports:
+        - name: default
+          containerPort: 7777
+      template:
+        spec:
+          containers:
+          - name: warcos-game-server
+            image: registry.4taleproduction.com/warcos/game:server
+            imagePullPolicy: Always
+              # resources:
+              #  requests:
+              #    memory: 64Mi
+              #    cpu: 20m
+              #  limits:
+              #    memory: 64Mi
+              #    cpu: 20m
+          imagePullSecrets:
+          - name: warcos-game-registry

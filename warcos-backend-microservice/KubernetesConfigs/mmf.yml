@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: warcos-matchfunction
+  namespace: warcos-mmf
+  labels:
+    app: warcos
+    component: matchfunction
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: warcos
+      component: matchfunction
+  template:
+    metadata:
+      name: warcos-matchfunction
+      namespace: warcos-mmf
+      labels:
+        app: warcos
+        component: matchfunction
+    spec:
+      containers:
+      - name: warcos-matchfunction
+        image: registry.4taleproduction.com/warcos/warcos-mmf:0.11
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: warcos-mmf-registry
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: warcos-matchfunction
+  namespace: warcos-mmf
+  labels:
+    app: warcos
+    component: matchfunction
+spec:
+  selector:
+    app: warcos
+    component: matchfunction
+  clusterIP: None
+  type: ClusterIP
+  ports:
+  - name: grpc
+    protocol: TCP
+    port: 50502

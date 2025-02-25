@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: warcos-lobby
+  namespace: warcos-lobby
+  labels:
+    app: warcos
+    component: lobby
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: warcos
+      component: lobby
+  template:
+    metadata:
+      name: warcos-lobby
+      namespace: warcos-lobby
+      labels:
+        app: warcos
+        component: lobby
+    spec:
+      containers:
+      - name: warcos-lobby
+        image: registry.4taleproduction.com/warcos/lobby:0.17
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8081
+        env:
+        - name: ASPNETCORE_HTTP_PORTS
+          value: "8081"
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Testing"
+        - name: ASPNETCORE_URLS
+          value: "http://+:8081"
+        - name: FRONTEND_ADDRESS
+          value: "http://open-match-frontend.open-match.svc.cluster.local:50504"
+        - name: PG_CONNECTION
+          value: "Server=postgres.default.svc.cluster.local;Port=5432;Database=warcos_lobby;User Id=postgres;Password=postgres"
+      imagePullSecrets:
+      - name: warcos-lobby-registry
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: warcos-lobby-dev
+  namespace: warcos-lobby
+  labels:
+    app: warcos
+    component: lobby
+spec:
+  selector:
+    app: warcos
+    component: lobby
+  type: NodePort
+  ports:
+  - protocol: TCP
+    nodePort: 30021
+    port: 8081
+    targetPort: 8081
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: warcos-lobby
+  namespace: warcos-lobby
+  labels:
+    app: warcos
+    component: lobby
+spec:
+  selector:
+    app: warcos
+    component: lobby
+  clusterIP: None
+  type: ClusterIP
+  ports:
+  - name: http
+    protocol: TCP
+    port: 8081

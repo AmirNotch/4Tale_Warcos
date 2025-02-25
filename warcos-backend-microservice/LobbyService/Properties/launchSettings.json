@@ -1,0 +1,45 @@
+{
+  "profiles": {
+    "dev": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "PG_CONNECTION": "Host=localhost; Database=warcos_backend; Username=postgres; Password=123"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:444;http://localhost:8081"
+    },
+    "dev-Amir": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "PG_CONNECTION": "Host=localhost;Port=5433;Database=warcos_backend;User Id=postgres;Password=810947"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:444;http://localhost:8081"
+    },
+    "prod": {
+      "commandName": "Project",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "environmentVariables": {
+        "ASPNETCORE_URLS": "http://0.0.0.0:8081/",
+        "DOTNET_URLS": "http://0.0.0.0:8081/",
+        "ASPNETCORE_ENVIRONMENT": "Production",
+        "FRONTEND_ADDRESS": "om-frontend:50504",
+        "PG_CONNECTION": "Host=localhost; Database=warcos_backend; Username=postgres; Password=123",
+        "applicationUrl": "http://0.0.0.0:8081"
+      },
+      "dotnetRunMessages": true
+    }
+  },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:8081",
+      "sslPort": 444
+    }
+  }
+}

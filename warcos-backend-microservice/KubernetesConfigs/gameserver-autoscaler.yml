@@ -1,0 +1,12 @@
+apiVersion: autoscaling.agones.dev/v1
+kind: FleetAutoscaler
+metadata:
+  name: warcos-game-server-autoscaler
+spec:
+  fleetName: warcos-game-server
+  policy:
+    type: Buffer
+    buffer:
+      bufferSize: 2
+      minReplicas: 3
+      maxReplicas: 10

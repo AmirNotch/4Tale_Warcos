@@ -1,0 +1,9 @@
+## Migration: Create
+dotnet ef migrations add Init -c ApplicationDbContext -o Database/Migrations/AspNetIdentity
+dotnet ef migrations add Init -c ConfigurationDbContext -o Database/Migrations/IdentityServer/ConfigurationDb
+dotnet ef migrations add Init -c PersistedGrantDbContext -o Database/Migrations/IdentityServer/PersistedGrantDb
+
+## Migration: Push
+dotnet ef database update -c ApplicationDbContext
+dotnet ef database update -c ConfigurationDbContext
+dotnet ef database update -c PersistedGrantDbContext

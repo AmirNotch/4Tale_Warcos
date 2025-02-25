@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: warcos-director
+  namespace: warcos-director
+  labels:
+    app: warcos
+    component: director
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: warcos
+      component: director
+  template:
+    metadata:
+      name: warcos-director
+      namespace: warcos-director
+      labels:
+        app: warcos
+        component: director
+    spec:
+      containers:
+      - name: warcos-director
+        image: registry.4taleproduction.com/warcos/warcos-director:0.21
+        imagePullPolicy: Always
+        env:
+        - name: LOBBY_URL
+          value: "http://warcos-lobby.warcos-lobby.svc.cluster.local:8081"
+        - name: PROFILE
+          value: "prod"
+        - name: GAME_SERVER_IMAGE
+          value: "registry.4taleproduction.com/warcos/game:server-nightly-art"
+      imagePullSecrets:
+      - name: warcos-director-registry
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: warcos-director
+  namespace: warcos-director
+  labels:
+    app: warcos
+    component: director
+spec:
+  selector:
+    app: warcos
+    component: director
+  clusterIP: None
+  type: ClusterIP
+  ports:
+  - name: grpc
+    protocol: TCP
+    port: 50501
+

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-deployment
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: auth-app
+    spec:
+      containers:
+        - name: backend-container
+          image: registry.4taleproduction.com/warcos/auth-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5001
+          env:
+          - name: STEAM_WEB_API_KEY
+            value: "CHANGEIT"
+          - name: STEAM_APP_ID
+            value: "CHANGEIT"
+          - name: ConnectionStrings__DefaultConnection
+            value: "Server=postgres.default.svc.cluster.local;Port=5432;Database=auth;User Id=postgres;Password=postgres"
+      imagePullSecrets:
+      - name: gitlab-auth
+  selector:
+    matchLabels:
+      app: auth-app
